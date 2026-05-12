@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Montserrat, Roboto } from "next/font/google";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+
+const robotoHeading = Roboto({subsets:['latin'],variable:'--font-heading'});
+
+const montserrat = Montserrat({subsets:['latin'],variable:'--font-sans'});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={cn("font-sans", montserrat.variable, robotoHeading.variable)}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
