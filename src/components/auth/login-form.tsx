@@ -148,6 +148,12 @@ const LoginForm = () => {
                   type="button"
                   disabled={isPending}
                 >
+                  <Image
+                    src="/logos/google.svg"
+                    width={20}
+                    height={20}
+                    alt="Google Logo"
+                  />
                   Continue with Google
                 </Button>
                 <Button
@@ -156,6 +162,12 @@ const LoginForm = () => {
                   type="button"
                   disabled={isPending}
                 >
+                  <Image
+                    src="/logos/github.svg"
+                    width={20}
+                    height={20}
+                    alt="GitHub Logo"
+                  />
                   Continue with GitHub
                 </Button>
               </Field>
