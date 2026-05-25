@@ -12,6 +12,12 @@ export default function Home() {
   const trpc = useTRPC();
   const queryClient = useQueryClient();
   const { data } = useQuery(trpc.getWorkflows.queryOptions());
+
+  const testAI = useMutation(trpc.testAI.mutationOptions({
+    onSuccess: () => {
+      toast.success("AI Job queued");
+    }
+  }));
   const create = useMutation(
     trpc.createWorkflow.mutationOptions({
       onSuccess: () => {
@@ -23,14 +29,23 @@ export default function Home() {
     <div className="flex min-h-screen items-center justify-center flex-col gap-y-6 px-4">
       Protected Server Component
       <div>{JSON.stringify(data, null, 2)}</div>
-      <Button
-        onClick={() => create.mutate()}
-        disabled={create.isPending}
-        className="rounded-md cursor-pointer"
-      >
-        Create Workflow
-      </Button>
-      <LogoutButton />
+      <div className="max-w-md p-4 flex flex-col gap-y-4">
+        <Button
+          onClick={() => testAI.mutate()}
+          disabled={testAI.isPending}
+          className="rounded-md cursor-pointer"
+        >
+          Test AI
+        </Button>
+        <Button
+          onClick={() => create.mutate()}
+          disabled={create.isPending}
+          className="rounded-md cursor-pointer"
+        >
+          Create Workflow
+        </Button>
+        <LogoutButton />
+      </div>
     </div>
   );
 }
