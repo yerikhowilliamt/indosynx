@@ -41,19 +41,22 @@ const LoginForm = () => {
   });
 
   const onSubmit = async (payload: LoginPayload) => {
-    await authClient.signIn.email({
-      email: payload.email,
-      password: payload.password,
-      callbackURL: '/'
-    }, {
-      onSuccess: () => {
-        toast.success("Logged in successfully");
-        router.push("/");
+    await authClient.signIn.email(
+      {
+        email: payload.email,
+        password: payload.password,
+        callbackURL: "/",
       },
-      onError: (ctx) => {
-        toast.error(ctx.error.message || "An error occurred during login");
-      }
-    })
+      {
+        onSuccess: () => {
+          toast.success("Logged in successfully");
+          router.push("/");
+        },
+        onError: (ctx) => {
+          toast.error(ctx.error.message || "An error occurred during login");
+        },
+      },
+    );
   };
 
   const isPending = form.formState.isSubmitting;
@@ -61,10 +64,10 @@ const LoginForm = () => {
   return (
     <div className="flex flex-col gap-6">
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <Card>
+        <Card className="bg-black/20 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl text-white">
           <CardHeader className="text-center">
             <CardTitle className="text-2xl">Welcome back</CardTitle>
-            <CardDescription>
+            <CardDescription className="text-white">
               Enter your email and password to sign in to your account
             </CardDescription>
           </CardHeader>
@@ -75,7 +78,7 @@ const LoginForm = () => {
                 <FieldLabel htmlFor="email">Email</FieldLabel>
                 <Input
                   id="email"
-                  className={`rounded-md ${errors.email && "border-destructive focus:ring-destructive placeholder:text-destructive"}`}
+                  className={`rounded-md ${errors.email && "border-destructive focus:ring-destructive placeholder:text-destructive"} placeholder:text-white focus-visible:ring-white/60`}
                   placeholder="email@example.com"
                   type="email"
                   autoComplete="email"
@@ -94,7 +97,7 @@ const LoginForm = () => {
                 <div className="relative">
                   <Input
                     id="password"
-                    className={`rounded-md ${errors.password && "border-destructive focus:ring-destructive placeholder:text-destructive"}`}
+                    className={`rounded-md ${errors.password && "border-destructive focus:ring-destructive placeholder:text-destructive"} placeholder:text-white focus-visible:ring-white/60`}
                     placeholder="••••••••"
                     type={showPassword ? "text" : "password"}
                     autoComplete="current-password"
@@ -110,9 +113,9 @@ const LoginForm = () => {
                     }
                   >
                     {showPassword ? (
-                      <EyeOff className="h-4 w-4" />
+                      <EyeOff className="h-4 w-4 text-white" />
                     ) : (
-                      <Eye className="h-4 w-4" />
+                      <Eye className="h-4 w-4 text-white" />
                     )}
                   </button>
                 </div>
