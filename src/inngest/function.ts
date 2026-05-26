@@ -15,6 +15,11 @@ export const execute = inngest.createFunction(
         "You are a helpful assistant for generating text using Google Gemini.",
       model: google("gemini-2.5-flash"),
       prompt: "what is 2 + 2? ",
+      experimental_telemetry: {
+        isEnabled: true,
+        recordInputs: true,
+        recordOutputs: true,
+      },
     });
 
     return steps;
